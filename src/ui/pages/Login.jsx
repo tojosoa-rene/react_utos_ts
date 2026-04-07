@@ -1,5 +1,7 @@
+import { Form, Input, Button, message } from "antd";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { loginStart, loginSuccess, loginError } from "../../store/features/auth/authSlice";
 
 import LoginUser from "../../application/user/LoginUser";
@@ -7,26 +9,23 @@ import UserRepository from "../../infrastructure/api/userRepositoryImpl";
 
 const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    const handleLogin = async (e) => {
-        e.preventDefault(); // important
-
-         console.log(email, password);
-
+    const onFinish = async (values) => {
         dispatch(loginStart());
 
         const repo      = new UserRepository();
         const loginUser = new LoginUser(repo);
 
         try {
-            const result = await loginUser.execute(email, password);
-
+            const result = await loginUser.execute(values.email, values.password);
             dispatch(loginSuccess(result));
+
+            message.success("Login successful ✅");
+
         } catch (error) {
             dispatch(loginError(error.message));
+            message.error(error.message);
         }
     };
 
@@ -34,38 +33,62 @@ const Login = () => {
         <div className="login-container">
             <h2>LOGIN</h2>
 
-            {/* Email */}
-            <input
-                type="text"
-                placeholder="Email"
-                onChange={(e) => setEmail(e.target.value)}
-            />
+            <Form layout="vertical" onFinish={onFinish}>
 
-            {/* Password + 👁️ */}
-            <div className="password-wrapper">
-                <input
-                    type={"password"}
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-            </div>
+                {/* Email */}
+                <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                        { required: true, message: "Email required" },
+                        { type: "email", message: "Invalid email address" }
+                    ]}
+                    autoComplete="off"
+                >
+                    <Input placeholder="Email" />
+                </Form.Item>
 
-            {/* Forgot password */}
-            <p
-                className="forgot-password"
-                onClick={() => navigate("/forgot-password")}
-            >
-                Forgot password?
-            </p>
+                {/* Password */}
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[
+                        { required: true, message: "Password required" }
+                    ]}
+                    className="password-wrapper"
+                    autoComplete="off"
+                >
+                    <Input.Password placeholder="Password" />
+                </Form.Item>
 
-            {/* Buttons */}
-            <button className="btn-yellow" onClick={handleLogin}>
-                SIGN IN
-            </button>
+                {/* Forgot password */}
+                <p
+                    className="forgot-password"
+                    onClick={() => navigate("/forgot-password")}
+                >
+                    Forgot password?
+                </p>
 
-            <button className="btn-gray" onClick={() => navigate("/")}>
-                CANCEL
-            </button>
+                {/* Buttons */}
+                <Form.Item>
+                    <Button 
+                        type="primary" 
+                        htmlType="submit" 
+                        className="btn-yellow"
+                    >
+                        SIGN IN
+                    </Button>
+
+                    <Button
+                        htmlType="button"
+                        className="btn-gray"
+                        onClick={() => navigate("/")}
+                    >
+                        CANCEL
+                    </Button>
+                </Form.Item>
+
+            </Form>
         </div>
     );
 };

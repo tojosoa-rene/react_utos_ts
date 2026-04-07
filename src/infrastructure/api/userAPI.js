@@ -5,4 +5,9 @@ export default class UserAPI {
         const res = await API.post("/login", { email, password });
         return res.data;
     }
+
+    async forgotPassword(email) {
+        const res = await API.post("/forgot-password", { email });
+        return res.data;
+    }
 }

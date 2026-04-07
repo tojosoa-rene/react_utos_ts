@@ -11,6 +11,10 @@ class UserRepositoryImpl extends UserRepository {
         // API Call
         return this.api.login(email, password);
     }
+
+    async forgotPassword(email) {
+        return this.api.forgotPassword(email);
+    }
 }
 
 export default UserRepositoryImpl;

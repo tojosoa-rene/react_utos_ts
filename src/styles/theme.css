@@ -1,6 +1,6 @@
 body {
-  background-color: #e4dede;
-  color: white;
+  background-color: #0a0a0a;
+  color: #ede6e6;
   font-family: Arial, sans-serif;
 }
 
@@ -32,6 +32,7 @@ input {
   padding: 10px;
   border: none;
   border-radius: 5px;
+  margin-left: 10px;
 }
 
 /* wrapper password */
@@ -58,4 +59,13 @@ input {
 
 .forgot-password:hover {
   text-decoration: underline;
+}
+
+/* inline css */
+.ant-form-item-label > label {
+    color: white!important; /* change la couleur */
+}
+
+.ant-typography {
+    color: white!important; /* change la couleur */
 }
