@@ -4,8 +4,8 @@ import { Form, Input, Button, Typography, message } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ForgotPasswordUseCase from "../../application/user/forgotPassword";
-import UserRepositoryImpl from "../../infrastructure/api/userRepositoryImpl";
+import ForgotPasswordUseCase from "../../application/user/ForgotPassword";
+import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
 
 const { Title } = Typography;
 
@@ -26,7 +26,7 @@ export default function ForgotPassword() {
 
             messageApi.success("Reset email sent !");
         } catch (err) {
-            messageApi.error("An error occurred");
+            messageApi.error("User not found");
         } finally {
             setLoading(false);
         }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { loginStart, loginSuccess, loginError } from "../../store/features/auth/authSlice";
 
 import LoginUser from "../../application/user/LoginUser";
-import UserRepository from "../../infrastructure/api/userRepositoryImpl";
+import UserRepository from "../../infrastructure/api/UserRepositoryImpl";
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -21,7 +21,10 @@ const Login = () => {
             const result = await loginUser.execute(values.email, values.password);
             dispatch(loginSuccess(result));
 
-            message.success("Login successful ✅");
+            // console.log(result);
+            
+
+            message.success("Login successful");
 
         } catch (error) {
             dispatch(loginError(error.message));

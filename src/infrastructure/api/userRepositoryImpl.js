@@ -1,5 +1,5 @@
 import UserRepository from "../../domain/user/UserRepository";
-import UserAPI from "./userAPI";
+import UserAPI from "./UserAPI";
 
 class UserRepositoryImpl extends UserRepository {   
     constructor() {
@@ -15,6 +15,11 @@ class UserRepositoryImpl extends UserRepository {
     async forgotPassword(email) {
         return this.api.forgotPassword(email);
     }
+
+    async resetPassword(token, newPassword) {
+        return this.api.resetPassword(token, newPassword);
+    }
+
 }
 
 export default UserRepositoryImpl;

@@ -9,6 +9,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./ui/pages/Login";
 import Dashboard from "./ui/pages/Dashboard";
 import ForgotPassword from "./ui/pages/ForgotPassword";
+import ResetPassword from './ui/pages/ResetPassword';
 
 function App() {
   // maka dispatch function avy amin'ny Redux
@@ -35,7 +36,11 @@ function App() {
       />
       <Route
         path="/forgot-password"
-        element={!user ? <ForgotPassword /> : <Navigate to="/" />}
+        element={<ForgotPassword />}
+      />
+      <Route
+        path="/reset-password"
+        element={<ResetPassword />}
       />
     </Routes>
   );
