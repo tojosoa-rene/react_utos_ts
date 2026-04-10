@@ -1,8 +1,11 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://utos_back.local",
-});
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
 
 // interceptor
 API.interceptors.request.use((config) => {
