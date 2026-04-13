@@ -64,7 +64,14 @@ export default function ResetPassword() {
                 <Form.Item
                     label="New Password"
                     name="password"
-                    rules={[{ required: true, message: "Enter new password" }]}
+                    rules={[
+                        { required: true, message: "Enter new password" },
+                        {
+                            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                            message:
+                                "Min 8 chars, include uppercase, lowercase, number & special character",
+                        },
+                    ]}
                 >
                     <Input.Password />
                 </Form.Item>
