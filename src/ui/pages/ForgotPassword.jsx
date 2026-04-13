@@ -4,8 +4,8 @@ import { Form, Input, Button, Typography, message } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ForgotPasswordUseCase from "../../application/user/ForgotPassword";
-import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
+import ForgotPasswordUseCase from "../../application/user/forgot";
+import UserRepositoryImpl from "../../infrastructure/api/testImpl";
 
 const { Title } = Typography;
 
