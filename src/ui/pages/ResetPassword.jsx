@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 import ResetPasswordUseCase from "../../application/user/ResetPassword";
-import UserRepositoryImpl from "../../infrastructure/api/testImpl";
+import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
 
 const { Title } = Typography;
 

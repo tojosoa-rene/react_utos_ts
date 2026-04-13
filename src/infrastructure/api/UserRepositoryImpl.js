@@ -1,5 +1,5 @@
 import UserRepository from "../../domain/user/UserRepository";
-import UserAPI from "./usertest";
+import UserAPI from "./UserAPI";
 
 class UserRepositoryImpl extends UserRepository {   
     constructor() {
