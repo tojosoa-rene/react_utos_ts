@@ -1,4 +1,4 @@
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button, message, Typography  } from "antd";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -10,6 +10,8 @@ import UserRepository from "../../infrastructure/api/UserRepositoryImpl";
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const { Text, Link } = Typography;
 
     const onFinish = async (values) => {
         dispatch(loginStart());
@@ -90,7 +92,13 @@ const Login = () => {
                         CANCEL
                     </Button>
                 </Form.Item>
-
+            {/* Signup */}
+            <Text type="secondary">
+                Don't have an account?{" "}
+                <Link onClick={() => navigate("/signup")}>
+                    Sign up
+                </Link>
+            </Text>
             </Form>
         </div>
     );

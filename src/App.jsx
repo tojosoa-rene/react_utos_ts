@@ -10,6 +10,7 @@ import Login from "./ui/pages/Login";
 import Dashboard from "./ui/pages/Dashboard";
 import ForgotPassword from "./ui/pages/ForgotPassword";
 import ResetPassword from './ui/pages/ResetPassword';
+import Signup from './ui/pages/SignUp';
 
 function App() {
   // maka dispatch function avy amin'ny Redux
@@ -41,6 +42,11 @@ function App() {
       <Route
         path="/reset-password"
         element={<ResetPassword />}
+      />
+
+      <Route
+        path="/signup"
+        element={<Signup />}
       />
     </Routes>
   );
