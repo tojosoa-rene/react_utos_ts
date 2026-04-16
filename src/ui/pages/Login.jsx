@@ -94,9 +94,8 @@ const Login = () => {
                 </Form.Item>
             {/* Signup */}
             <Text type="secondary">
-                Don't have an account?{" "}
                 <Link onClick={() => navigate("/signup")}>
-                    Sign up
+                    Don't have an account?{"| "} Sign up
                 </Link>
             </Text>
             </Form>
