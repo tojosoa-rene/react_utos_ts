@@ -104,14 +104,7 @@ input {
     flex: 1;
 }
 
-.btn-yellow {
-    background-color: #d4b26a;
-    border: none;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.btn-gray {
-    width: 100%;
+.notification-confirm {
+    color:#f8f9fa;
 }
 /* signup end */

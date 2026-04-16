@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const Signup = () => {
-    const navigate = useNavigate();
+    const navigate  = useNavigate();
+    const [form]    = Form.useForm();
 
     const onFinish = (values) => {
         console.log(values);
@@ -15,7 +16,7 @@ const Signup = () => {
         <div className="signup-container">
             <h2>Sign Up</h2>
 
-            <Form layout="vertical" onFinish={onFinish}>
+            <Form form={form} layout="vertical" onFinish={onFinish}>
 
                 {/* Country + User Type */}
                 <div className="row">
@@ -105,13 +106,21 @@ const Signup = () => {
 
                 {/* Checkbox */}
                 <Form.Item name="notifications" valuePropName="checked">
-                    <Checkbox>I want to receive notification emails</Checkbox>
+                    <Checkbox className="notification-confirm">I want to receive notification emails</Checkbox>
                 </Form.Item>
 
                 {/* Buttons */}
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="btn-yellow">
                         S'INSCRIRE
+                    </Button>
+
+                    <Button
+                        htmlType="button"
+                        className="btn-gray"
+                        onClick={() => form.resetFields()}
+                    >
+                        CANCEL
                     </Button>
 
                     <Button
