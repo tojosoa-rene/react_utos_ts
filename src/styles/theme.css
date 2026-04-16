@@ -69,3 +69,19 @@ input {
 .ant-typography {
     color: white!important; /* change la couleur */
 }
+
+.btn-signup {
+  background-color: #2d2d2c;
+  color: #c8a96a; /* gold */
+  padding: 10px;
+  border: 1px solid #c8a96a;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn-signup:hover {
+  background-color: #c8a96a;
+  color: #fff;
+}

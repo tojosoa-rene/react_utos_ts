@@ -93,11 +93,13 @@ const Login = () => {
                     </Button>
                 </Form.Item>
             {/* Signup */}
-            <Text type="secondary">
-                <Link onClick={() => navigate("/signup")}>
-                    Don't have an account?{"| "} Sign up
-                </Link>
-            </Text>
+            <Button
+                htmlType="button"
+                className="btn-signup"
+                onClick={() => navigate("/signup")}
+            >
+                Don't have an account?{" | "} Sign up
+            </Button>
             </Form>
         </div>
     );
