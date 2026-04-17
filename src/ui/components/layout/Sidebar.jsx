@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../../../styles/layout.css'
 import { useDispatch } from "react-redux";
-import { logout } from "/src/store/features/auth/authSlice";
+import { logout } from "../../../store/features/auth/authSlice";
 import { Button } from "antd";
 
 

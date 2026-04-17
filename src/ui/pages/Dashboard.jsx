@@ -16,7 +16,7 @@ export default function Dashboard() {
 }*/
 
 import Layout from '../components/layout/Layout'
-import ContactForm from '/src/ui/components/form/ContactForm'
+import ContactForm from '../components/form/ContactForm'
 
 function Dashboard() {
 
