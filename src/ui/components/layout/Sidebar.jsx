@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import '/src/styles/layout.css'
+import { useDispatch } from "react-redux";
+import { logout } from "/src/store/features/auth/authSlice";
+import { Button } from "antd";
+
 
 const sections = [
   'Section 1', 'Section 2', 'Section 3', 'Section 4',
@@ -8,6 +12,9 @@ const sections = [
 ]
 
 function Sidebar({ isOpen, onClose }) {
+
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState('')
 
   const filtered = sections.filter(s =>
@@ -40,6 +47,12 @@ function Sidebar({ isOpen, onClose }) {
               <i className="bi bi-chevron-right menu-chevron"></i>
             </div>
           ))}
+        </div>
+        <br></br>
+        <div>
+          <Button onClick={() => dispatch(logout())}>
+            Logout
+          </Button>
         </div>
       </div>
     </div>

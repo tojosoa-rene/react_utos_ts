@@ -15,27 +15,19 @@ export default function Dashboard() {
   );
 }*/
 
-import { useDispatch } from "react-redux";
 import Layout from '/src/ui/components/layout/Layout'
 import ContactForm from '/src/ui/components/form/ContactForm'
-import { logout } from "../../store/features/auth/authSlice";
-import { Button } from "antd";
 
-export default function Dashboard() {
+function Dashboard() {
 
-  const dispatch = useDispatch();
+
 
   return (
     <Layout>
       <ContactForm />
-      <div>
-        <Button onClick={() => dispatch(logout())}>
-        Logout
-      </Button>
-      </div>
+      
     </Layout>
     
   )
 }
-
-//export default Dashboard
+export default Dashboard
