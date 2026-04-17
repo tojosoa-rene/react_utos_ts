@@ -1,0 +1,20 @@
+.toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #2a2a2a;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }

@@ -112,7 +112,7 @@ const Signup = () => {
                 {/* Buttons */}
                 <Form.Item>
                     <Button type="primary" htmlType="submit" className="btn-yellow">
-                        S'INSCRIRE
+                        SIGN UP
                     </Button>
 
                     <Button

@@ -9,7 +9,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import App from './App.jsx'
 import { store } from './store/store' // important
 
-import './styles/theme.css'
+import './styles/theme.css';
+import './styles/form.css';
+import './styles/layout.css';
+import './styles/toast.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
