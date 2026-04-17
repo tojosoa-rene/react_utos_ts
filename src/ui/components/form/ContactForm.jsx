@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import '/src/styles/form.css'
-import '/src/styles/toast.css'
+import '../../../styles/form.css'
+import '../../../styles/toast.css'
 
 function ContactForm() {
   const [fields, setFields] = useState({ name: '', email: '', subject: '', message: '' })

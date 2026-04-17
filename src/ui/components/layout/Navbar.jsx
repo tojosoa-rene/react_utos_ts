@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import '/src/styles/layout.css'
+import '../../../styles/layout.css'
 
 function Navbar({ onToggle }) {
   const sections = [

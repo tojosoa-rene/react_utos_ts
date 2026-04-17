@@ -15,7 +15,7 @@ export default function Dashboard() {
   );
 }*/
 
-import Layout from '/src/ui/components/layout/Layout'
+import Layout from '../components/layout/Layout'
 import ContactForm from '/src/ui/components/form/ContactForm'
 
 function Dashboard() {
@@ -25,7 +25,6 @@ function Dashboard() {
   return (
     <Layout>
       <ContactForm />
-      
     </Layout>
     
   )

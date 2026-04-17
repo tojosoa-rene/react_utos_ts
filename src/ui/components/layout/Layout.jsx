@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
-import '/src/styles/layout.css'
+import '../../../styles/layout.css'
 
 function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)

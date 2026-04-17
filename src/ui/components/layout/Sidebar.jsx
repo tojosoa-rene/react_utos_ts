@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import '/src/styles/layout.css'
+import '../../../styles/layout.css'
 import { useDispatch } from "react-redux";
 import { logout } from "/src/store/features/auth/authSlice";
 import { Button } from "antd";
