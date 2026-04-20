@@ -1,8 +1,11 @@
 // src/ui/pages/ForgotPassword.jsx
 
 import { Form, Input, Button, Typography, message } from "antd";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import { forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure } from "../../store/features/auth/authSlice";
 
 import ForgotPasswordUseCase from "../../application/user/ForgotPassword";
 import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
@@ -10,26 +13,30 @@ import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
 const { Title } = Typography;
 
 export default function ForgotPassword() {
-
+    
+    const dispatch                      = useDispatch();
     const navigate                      = useNavigate();
+    const { status }                    = useSelector((state) => state.auth);
 
-    const [loading, setLoading]         = useState(false);
     const [messageApi, contextHolder]   = message.useMessage();
 
     const onFinish = async (values) => {
-        setLoading(true);
+        console.log(values);
+        dispatch(forgotPasswordStart());
 
         try {
             const useCase = new ForgotPasswordUseCase(new UserRepositoryImpl());
 
             await useCase.execute(values.email);
 
+            dispatch(forgotPasswordSuccess("Reset email sent !"));
+
             messageApi.success("Reset email sent !");
         } catch (err) {
+            dispatch(forgotPasswordFailure(err.message));
+
             messageApi.error("User not found");
-        } finally {
-            setLoading(false);
-        }
+        } 
     };
 
     return (
@@ -61,7 +68,6 @@ export default function ForgotPassword() {
                     <Button
                         type="primary"
                         htmlType="submit"
-                        loading={loading}
                         className="btn-yellow"
                     >
                         Send reset link
