@@ -1,15 +1,16 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
-import LoginUser from "../LoginUser";
+import LoginUser from "../../LoginUser";
 
 describe("LoginUser use case", () => {
   const fakeRepo = {
-    login: vi.fn() // fonction mock pour simuler le comportement de login dans UserRepositoryImpl
+    login: vi.fn() // fonction (vide) mock pour simuler le comportement de login dans UserRepositoryImpl
   };
 
   let loginUser;
 
   beforeEach(() => {
-    loginUser = new LoginUser(fakeRepo); //Midika: rehefa miantso loginUser.execute(), dia ilay fakeRepo.login no ampiasaina
+    // lorsque la méthode loginUser.execute() est appelée, c'est la méthode fakeRepo.login qui est utilisée
+    loginUser = new LoginUser(fakeRepo); 
   });
 
   afterEach(() => {
@@ -39,5 +40,4 @@ describe("LoginUser use case", () => {
       .rejects // attend que la promesse soit rejetée
       .toThrow("Invalid credentials"); // vérifie que l'erreur rejetée a le message "Invalid credentials"
     });
-    // “Rehefa mamoaka erreur ny repo, inona no ataon’ny LoginUser?”
 });

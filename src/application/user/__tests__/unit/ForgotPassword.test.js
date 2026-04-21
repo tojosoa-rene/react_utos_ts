@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
-import ForgotPassword from "../ForgotPassword";
+import ForgotPassword from "../../ForgotPassword";
 
 describe("ForgotPassword use case", () => {
 
