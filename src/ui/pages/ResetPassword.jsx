@@ -48,15 +48,11 @@ export default function ResetPassword() {
 
             dispatch(resetPasswordSuccess("Password updated successfully"));
 
-            messageApi.success("Password updated successfully");
-
             // redirect login
             // navigate("/login");
 
         } catch (err) {
             dispatch(resetPasswordFailure("Error updating password"));
-
-            messageApi.error("Error updating password");
         } 
     };
 

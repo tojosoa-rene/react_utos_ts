@@ -3,7 +3,7 @@
 import { Form, Input, Button, Typography, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure } from "../../store/features/auth/authSlice";
 
@@ -31,13 +31,23 @@ export default function ForgotPassword() {
 
             dispatch(forgotPasswordSuccess("Reset email sent !"));
 
-            messageApi.success("Reset email sent !");
+            // messageApi.success("Reset email sent !");
         } catch (err) {
             dispatch(forgotPasswordFailure(err.message));
 
-            messageApi.error("User not found");
+            // messageApi.error("User not found");
         } 
     };
+
+    useEffect(() => {
+        if (status === "success") {
+            messageApi.success("Reset email sent !");
+        }
+
+        if (status === "error") {
+            messageApi.error("User not found");
+        }
+    }, [status]);
 
     return (
         <div className="login-container">
