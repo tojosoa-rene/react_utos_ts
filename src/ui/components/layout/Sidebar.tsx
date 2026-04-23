@@ -1,3 +1,7 @@
+// Fichier de la barre latérale (Sidebar)
+// - il affiche les sections du menu et un champ de recherche pour filtrer les sections
+// - il gère l'état de recherche et les interactions avec la barre (clic sur une section, clic sur le bouton de fermeture)
+
 import { useState } from 'react'
 import '../../../styles/layout.css'
 import { useDispatch } from "react-redux";
@@ -9,9 +13,14 @@ const sections = [
   'Section 1', 'Section 2', 'Section 3', 'Section 4',
   'Section 5', 'Section 6', 'Section 7', 'Section 8',
   'Section 9', 'Section 10', 'Section 11', 'Section 12'
-]
+];
 
-function Sidebar({ isOpen, onClose }) {
+type SidebarProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   const dispatch = useDispatch();
 

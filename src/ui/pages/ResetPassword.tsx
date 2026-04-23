@@ -3,6 +3,7 @@ import { Form, Input, Button, Typography, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { resetPasswordStart, resetPasswordSuccess, resetPasswordFailure } from "../../store/features/auth/authSlice";
 
@@ -11,38 +12,44 @@ import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
 
 const { Title } = Typography;
 
+type ResetPasswordFormValues = {
+    password: string;
+    confirmPassword: string;
+};
+
 export default function ResetPassword() {
 
-    // const [loading, setLoading]         = useState(false);
-    const dispatch                          = useDispatch();
+    const dispatch                          = useAppDispatch();
     const [messageApi, contextHolder]       = message.useMessage();
-    const { status, message: msg, error }   = useSelector((state) => state.auth);
+    const { status, message: msg, error }   = useAppSelector((state) => state.auth);
 
     const navigate                          = useNavigate();
 
     const location                          = useLocation(); // hook avy amin'ny react-router
-    const [token, setToken]                 = useState(null);
+    const [token, setToken]                 = useState<string | null>(null);
     // const searchParams = new URLSearchParams(location.search);
     // const token = searchParams.get("token");
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
+        
         setToken(searchParams.get("token")); // mamerina 'ABC123XYZ'
     }, [location.search]);
 
-    const onFinish = async (values) => {
+    const onFinish = async (values: ResetPasswordFormValues) => {
         
         if (values.password !== values.confirmPassword) {
             return messageApi.error("Passwords do not match");
         }
         
         dispatch(resetPasswordStart());
-        // setLoading(true);
 
         try {
             const useCase = new ResetPasswordUseCase(new UserRepositoryImpl());
-
-            console.log(token, values.password);
+            
+            if (!token) {
+                throw new Error("Token invalide ou manquant");
+            }
             
             await useCase.execute(token, values.password);
 

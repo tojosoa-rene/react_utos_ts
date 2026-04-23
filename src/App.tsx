@@ -1,27 +1,28 @@
-import { useState, useEffect } from 'react'
+// Ce fichier est le point d'entrée de l'application React
+// - il configure les routes de l'application et utilise les hooks personnalisés pour accéder au store Redux
+// - il vérifie si l'utilisateur est authentifié pour protéger les routes privées (Dashboard)
+
+import { useEffect } from 'react'
 import { useSelector, useDispatch }from "react-redux";
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import { Routes, Route, Navigate } from "react-router-dom";
-// import './App.css'
+
+import { useAppDispatch, useAppSelector } from "./store/hooks"; // hooks typés
 
 import Login from "./ui/pages/Login";
 import Dashboard from "./ui/pages/Dashboard";
 import ForgotPassword from "./ui/pages/ForgotPassword";
 import ResetPassword from './ui/pages/ResetPassword';
-import Signup from './ui/pages/SignUp';
 
 function App() {
   // maka dispatch function avy amin'ny Redux
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   //maka user avy amin'ny Redux
-  const user  = useSelector((state) => state.auth.user);
+  const user    = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token && !user) {
-      dispatch(getMe()); // miverina fetch user
+      // dispatch(getMe()); // miverina fetch user
     }
   }, [dispatch, user]); //dependency array
 
@@ -42,11 +43,6 @@ function App() {
       <Route
         path="/reset-password"
         element={<ResetPassword />}
-      />
-
-      <Route
-        path="/signup"
-        element={<Signup />}
       />
     </Routes>
   );

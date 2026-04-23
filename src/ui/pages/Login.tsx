@@ -1,36 +1,52 @@
-import { Form, Input, Button, message, Typography  } from "antd";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// Fichier de la page de login
+// - il utilise Ant Design pour le formulaire et les composants UI
+// - il utilise le use case LoginUser pour gérer la logique métier de la connexion
+// - il utilise Redux pour gérer l'état global de l'authentification (dispatch des actions loginStart, loginSuccess, loginError)
 
+import { Form, Input, Button, message, Typography  } from "antd";
+import { useNavigate } from "react-router-dom"; // pour la navigation entre les pages
+
+// utiliser hooks typés (important)
+import { useAppDispatch } from "../../store/hooks";
+
+// actions Redu
 import { loginStart, loginSuccess, loginError } from "../../store/features/auth/authSlice";
 
 import LoginUser from "../../application/user/LoginUser";
-import UserRepository from "../../infrastructure/api/UserRepositoryImpl";
+import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
+
+// type des données du formulaire
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
+
 
 const Login = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const { Text, Link } = Typography;
 
-    const onFinish = async (values) => {
+    const onFinish = async (values: LoginFormValues) => {
         dispatch(loginStart());
 
-        const repo      = new UserRepository();
+        const repo      = new UserRepositoryImpl();
         const loginUser = new LoginUser(repo);
 
         try {
             const result = await loginUser.execute(values.email, values.password);
-            dispatch(loginSuccess(result));
 
-            // console.log(result);
-            
+            dispatch(loginSuccess(result));
 
             message.success("Login successful");
 
-        } catch (error) {
-            dispatch(loginError(error.message));
-            message.error(error.message);
+        } catch (error: unknown) {
+            // bonne pratique TS (éviter any)
+            const err = error as Error;
+
+            dispatch(loginError(err.message));
+            message.error(err.message);
         }
     };
 
@@ -48,7 +64,6 @@ const Login = () => {
                         { required: true, message: "Email required" },
                         { type: "email", message: "Invalid email address" }
                     ]}
-                    autoComplete="off"
                 >
                     <Input placeholder="Email" />
                 </Form.Item>
@@ -61,7 +76,6 @@ const Login = () => {
                         { required: true, message: "Password required" }
                     ]}
                     className="password-wrapper"
-                    autoComplete="off"
                 >
                     <Input.Password placeholder="Password" />
                 </Form.Item>
@@ -92,14 +106,6 @@ const Login = () => {
                         CANCEL
                     </Button>
                 </Form.Item>
-            {/* Signup */}
-            <Button
-                htmlType="button"
-                className="btn-signup"
-                onClick={() => navigate("/signup")}
-            >
-                Don't have an account?{" | "} Sign up
-            </Button>
             </Form>
         </div>
     );

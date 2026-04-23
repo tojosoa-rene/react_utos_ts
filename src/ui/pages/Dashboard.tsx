@@ -20,8 +20,6 @@ import ContactForm from '../components/form/ContactForm'
 
 function Dashboard() {
 
-
-
   return (
     <Layout>
       <ContactForm />
@@ -29,4 +27,5 @@ function Dashboard() {
     
   )
 }
+
 export default Dashboard

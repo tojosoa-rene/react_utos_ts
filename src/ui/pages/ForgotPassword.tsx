@@ -1,9 +1,10 @@
 // src/ui/pages/ForgotPassword.jsx
 
 import { Form, Input, Button, Typography, message } from "antd";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { forgotPasswordStart, forgotPasswordSuccess, forgotPasswordFailure } from "../../store/features/auth/authSlice";
 
@@ -12,16 +13,20 @@ import UserRepositoryImpl from "../../infrastructure/api/UserRepositoryImpl";
 
 const { Title } = Typography;
 
+type ForgotPasswordFormValues = {
+    email: string;
+};
+
 export default function ForgotPassword() {
     
-    const dispatch                      = useDispatch();
+    const dispatch                      = useAppDispatch();
     const navigate                      = useNavigate();
-    const { status }                    = useSelector((state) => state.auth);
+    const { status }                    = useAppSelector((state) => state.auth);
 
     const [messageApi, contextHolder]   = message.useMessage();
 
-    const onFinish = async (values) => {
-        console.log(values);
+    const onFinish = async (values: ForgotPasswordFormValues) => {
+
         dispatch(forgotPasswordStart());
 
         try {
@@ -31,11 +36,10 @@ export default function ForgotPassword() {
 
             dispatch(forgotPasswordSuccess("Reset email sent !"));
 
-            // messageApi.success("Reset email sent !");
-        } catch (err) {
-            dispatch(forgotPasswordFailure(err.message));
-
-            // messageApi.error("User not found");
+        } catch (err : unknown) {
+            const error = err as Error;
+            
+            dispatch(forgotPasswordFailure(error.message));
         } 
     };
 

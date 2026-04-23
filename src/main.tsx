@@ -1,3 +1,7 @@
+// Ce fichier est le point d'entrée de l'application React
+// - il configure les routes de l'application et utilise les hooks personnalisés pour accéder au store Redux
+// - il vérifie si l'utilisateur est authentifié pour protéger les routes privées (Dashboard)
+
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from "react-redux"
@@ -14,9 +18,9 @@ import './styles/form.css';
 import './styles/layout.css';
 import './styles/toast.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>   {/* ITO no missing */}
+    <Provider store={store}> {/* Fournit le store Redux à toute l'application */}
       <BrowserRouter>
         <App />
       </BrowserRouter>

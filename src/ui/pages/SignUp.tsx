@@ -1,14 +1,30 @@
 import { Form, Input, Button, Select, DatePicker, Checkbox, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { Dayjs } from "dayjs";
 
-const { Option } = Select;
+type SignupFormValues = {
+    country: string;
+    userType: string;
+    info?: string;
+    title?: string;
+    firstName: string;
+    lastName: string;
+    dob?: Dayjs;
+    email: string;  
+    address?: string;
+    company?: string;
+    telephone?: string;
+    mobile?: string;
+    fax?: string;
+    notifications?: boolean;
+};
 
 const Signup = () => {
     const navigate  = useNavigate();
     const [form]    = Form.useForm();
 
-    const onFinish = (values) => {
-        console.log(values);
+    const onFinish = (values: SignupFormValues) => {
+
         message.success("Registration successful !");
     };
 
@@ -21,17 +37,23 @@ const Signup = () => {
                 {/* Country + User Type */}
                 <div className="row">
                     <Form.Item name="country" label="Country" rules={[{ required: true }]}>
-                        <Select placeholder="Select country">
-                            <Option value="mauritius">Mauritius</Option>
-                            <Option value="madagascar">Madagascar</Option>
-                        </Select>
+                        <Select
+                            placeholder="Select country"
+                            options={[
+                                { value: "mauritius", label: "Mauritius" },
+                                { value: "madagascar", label: "Madagascar" }
+                            ]}
+                        />
                     </Form.Item>
 
                     <Form.Item name="userType" label="User type" rules={[{ required: true }]}>
-                        <Select placeholder="Select user type">
-                            <Option value="client">Client</Option>
-                            <Option value="admin">Admin</Option>
-                        </Select>
+                        <Select
+                            placeholder="Select user type"
+                            options={[
+                                { value: "client", label: "Client" },
+                                { value: "admin", label: "Admin" }
+                            ]}
+                        />
                     </Form.Item>
                 </div>
 
@@ -43,10 +65,13 @@ const Signup = () => {
                 {/* Title + First Name */}
                 <div className="row">
                     <Form.Item name="title" label="Title">
-                        <Select placeholder="Title">
-                            <Option value="mr">Mr</Option>
-                            <Option value="mrs">Mrs</Option>
-                        </Select>
+                        <Select
+                            placeholder="Select title"
+                            options={[
+                                { value: "mr", label: "Mr" },
+                                { value: "mrs", label: "Mrs" }
+                            ]}
+                        />
                     </Form.Item>
 
                     <Form.Item name="firstName" label="First Name" rules={[{ required: true }]}>
