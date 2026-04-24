@@ -4,11 +4,13 @@ import ForgotPassword from "../../ForgotPassword";
 import UserRepositoryImpl from "../../../../infrastructure/api/UserRepositoryImpl";
 import UserAPI from "../../../../infrastructure/api/UserAPI";
 
+// mock module API
 vi.mock("../../../../infrastructure/api/UserAPI");
 
 describe("Integration Test - ForgotPassword", () => {
-  let forgotPassword;
-  let userAPIInstance;
+
+  let forgotPassword: ForgotPassword;
+  let userAPIInstance: any; // mock dynamique
 
   beforeEach(() => {
     // mock API layer
@@ -18,9 +20,11 @@ describe("Integration Test - ForgotPassword", () => {
       message: "Email sent"
     });
 
-    // real repository (but injected fake API)
+    // repository réel + injection mock API
     const repo = new UserRepositoryImpl();
-    repo.api = userAPIInstance;
+
+    // injection forcée (OK en test)
+    (repo as any).api = userAPIInstance;
 
     // use case
     forgotPassword = new ForgotPassword(repo);
@@ -47,8 +51,9 @@ describe("Integration Test - ForgotPassword", () => {
       new Error("User not found")
     );
 
-    await expect(forgotPassword.execute("wrong@mail.com"))
-      .rejects
-      .toThrow("User not found");
+    await expect(
+      forgotPassword.execute("wrong@mail.com")
+    ).rejects.toThrow("User not found");
   });
+
 });

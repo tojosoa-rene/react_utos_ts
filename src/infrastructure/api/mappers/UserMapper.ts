@@ -11,10 +11,10 @@ import { User } from "../../../domain/user/User";
 export const mapToUser = (dto: LoginResponseDTO): { user: User; token: string } => {
   return {
     user: {
-      id: dto.id,
-      name: dto.name,
-      email: dto.email,
-      role: dto.role,
+      id: dto.user.id,
+      name: dto.user.name,
+      email: dto.user.email,
+      role: dto.user.role,
     },
     token: dto.token,
   };

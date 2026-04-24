@@ -5,6 +5,7 @@
 import axios from "axios";
 import { logout } from "../../store/features/auth/authSlice";
 import { store } from "../../store/store";
+import { storage } from "../../infrastructure/storage/storage";
 
 // instance typée d'axios avec configuration de baseURL et headers
 const API = axios.create({
@@ -19,7 +20,7 @@ API.interceptors.request.use((config) => {
   // config.withCredentials = true; // important (“envoye aussi les cookies automatiquement avec chaque requête”)
 
   // return config;
-  const token = localStorage.getItem("token");
+  const token = storage.getToken();
 
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;

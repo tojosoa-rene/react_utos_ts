@@ -7,22 +7,25 @@ import UserAPI from "../../../../infrastructure/api/UserAPI";
 vi.mock("../../../../infrastructure/api/UserAPI");
 
 describe("Integration Test - ResetPassword", () => {
-  let resetPassword;
-  let userAPIInstance;
+
+  let resetPassword: ResetPassword;
+  let userAPIInstance: any;
 
   beforeEach(() => {
-    // fake API layer
+    // mock API layer
     userAPIInstance = new UserAPI();
 
     userAPIInstance.resetPassword = vi.fn().mockResolvedValue({
       message: "Password updated"
     });
 
-    // real repository (dependency injected)
+    // repository réel + injection mock
     const repo = new UserRepositoryImpl();
-    repo.api = userAPIInstance;
 
-    // use case real
+    // injection API mockée
+    (repo as any).api = userAPIInstance;
+
+    // use case
     resetPassword = new ResetPassword(repo);
   });
 
@@ -53,8 +56,7 @@ describe("Integration Test - ResetPassword", () => {
 
     await expect(
       resetPassword.execute("wrongToken", "pass")
-    )
-      .rejects
-      .toThrow("Invalid token");
+    ).rejects.toThrow("Invalid token");
   });
+
 });

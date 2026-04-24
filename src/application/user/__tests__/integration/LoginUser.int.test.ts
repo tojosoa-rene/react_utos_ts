@@ -1,34 +1,33 @@
+// test d'intégration du use case LoginUser
+// - on utilise un mock de l'API pour simuler les appels réseau, mais on teste le flow complet du use case à travers le repository et l'API
+// - cela permet de vérifier que les différentes couches de l'application fonctionnent correctement ensemble, et que les données sont bien transmises du use case à l'API
+
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 
 import LoginUser from "../../LoginUser";
 import UserRepositoryImpl from "../../../../infrastructure/api/UserRepositoryImpl";
 import UserAPI from "../../../../infrastructure/api/UserAPI";
 
-// Mock de UserAPI pour simuler les appels HTTP
 vi.mock("../../../../infrastructure/api/UserAPI");
 
 describe("Integration Test - LoginUser", () => {
-  let loginUser;
-  let userAPIInstance;
+
+  let loginUser: LoginUser;
+  let userAPIInstance: any;
 
   beforeEach(() => {
-    // create mocked instance
     userAPIInstance = new UserAPI();
 
-    // override method login (mock HTTP layer)
-    // Quand userAPIInstance.login() est appelé, retourne une promesse résolue avec un token et des données utilisateur
     userAPIInstance.login = vi.fn().mockResolvedValue({
       token: "real-token",
       user: { id: 1, email: "test@mail.com" }
     });
 
-    // Injection du mock API dans le repository
-    // Création du vrai repository (implémentation réelle)
-    const repo  = new UserRepositoryImpl();
-    // Remplace la propriété api du repository par notre instance mockée de UserAPI
-    repo.api    = userAPIInstance;
+    const repo = new UserRepositoryImpl();
 
-    // use case
+    // typage propre
+    (repo as any).api = userAPIInstance;
+
     loginUser = new LoginUser(repo);
   });
 

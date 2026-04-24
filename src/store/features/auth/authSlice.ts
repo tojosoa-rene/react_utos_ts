@@ -4,13 +4,14 @@
 // - il utilise localStorage pour persister le token et les informations de l'utilisateur entre les sessions
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { storage } from "../../../infrastructure/storage/storage";
 
-const token = localStorage.getItem("token");
+const token = storage.getToken();
 
 let user = null;
 
 if (token) {
-  const userData = localStorage.getItem("user");
+  const userData = storage.getUser();
 
   if (userData) {
     user = JSON.parse(userData);
@@ -59,8 +60,9 @@ const authSlice = createSlice({
       state.user   = action.payload.user;
       state.token  = action.payload.token;
 
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("token", action.payload.token);
+      // localStorage.setAuth("user", JSON.stringify(action.payload.user));
+      // localStorage.setItem("token", action.payload.token);
+      storage.setAuth(action.payload.token, action.payload.user);
     },
 
     loginError: (state, action: PayloadAction<string>) => {
