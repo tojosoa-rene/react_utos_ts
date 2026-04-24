@@ -3,6 +3,7 @@
 // - cela permet de séparer la logique métier (dans les use cases) de la logique d'accès aux données (dans les repositories)
 
 import { UserRepository } from "../../domain/user/UserRepository";
+import { mapToUser } from "./mappers/UserMapper";
 import UserAPI from "./UserAPI";
 
 class UserRepositoryImpl implements UserRepository {
@@ -16,7 +17,12 @@ class UserRepositoryImpl implements UserRepository {
     
     async login(email: string, password: string) {
         // API Call
-        return this.api.login(email, password);
+        // return this.api.login(email, password);
+        const response = await this.api.login(email, password);
+
+        // Mapping de la réponse de l'API vers le format attendu par l'application
+        // (User et token)
+        return mapToUser(response);
     }
 
     async forgotPassword(email: string) {

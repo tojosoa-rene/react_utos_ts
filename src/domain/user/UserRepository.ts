@@ -6,6 +6,7 @@
  *  - en TypeScript, les interfaces sont souvent utilisées pour définir des contrats pour les services ou les repositories, 
  *    tandis que les classes sont utilisées pour fournir des implémentations concrètes de ces contrats
  */
+
 import { User } from "./User";
 
 // CONTRAT HEXAGONAL (très important)
@@ -13,7 +14,6 @@ export interface UserRepository {
 
   // login retourne un User + token (à adapter selon API)
   login(email: string, password: string): Promise<{
-    success: boolean;
     user: User;
     token: string;
   }>;

@@ -1,0 +1,26 @@
+// Ce fichier de configuration TypeScript définit comment le compilateur doit traiter les fichiers du projet.
+
+{
+    // Comment TypeScript doit fonctionner
+  "compilerOptions": {
+    "target": "ESNext", //version de JavaScript générée (JS moderne (ES2023+))
+    "useDefineForClassFields": true, //gestion moderne des propriétés de classe
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], //quelles APIs sont disponibles
+
+    "module": "ESNext", //système de modules utilisé (import/export natifs)
+    "moduleResolution": "bundler", //comment TS trouve les fichiers (compatible avec les bundlers modernes : vite, webpack)
+
+    "strict": true, //active toutes les règles strictes de vérification de type (mode : sécurité maximale)
+    "skipLibCheck": true, //ignore les erreurs dans les librairies externes (accélère la compilation)
+
+    "jsx": "react-jsx", //gestion JSX pour React (automatique, pas besoin d'importer React)
+
+    "resolveJsonModule": true, //permet d’importer JSON comme modules
+    "isolatedModules": true, // chaque fichier doit être indépendant
+    "noEmit": true, //TS ne génère pas de JS, il sert uniquement à la vérification de type
+ 
+    "allowJs": true //autorise les fichiers .js dans le projet (utile pour la migration progressive)
+  },
+//   TS va analyser les fichiers dans src
+  "include": ["src"]
+}
